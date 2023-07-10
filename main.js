@@ -86,6 +86,7 @@ function init() {
   geometry = new THREE.BoxGeometry(size, size, size);
   material = new THREE.MeshPhongMaterial({
     color: data.objectcolor,
+    // wireframe: true,
   });
 
   mesh = new THREE.Mesh(geometry, material);
@@ -129,7 +130,7 @@ function init() {
   sound = new THREE.Audio(listener);
   // load a sound and set it as the Audio object's buffer
   audioLoader = new THREE.AudioLoader();
-  audioLoader.load("sounds/vongcoteen-vinhthienkim.ogg", function (buffer) {
+  audioLoader.load("sounds/DITF.ogg", function (buffer) {
     sound.setBuffer(buffer);
     sound.setLoop(true);
     sound.setVolume(0.5);
@@ -281,7 +282,7 @@ function animation(data) {
 var rangeScence = 400;
 function updateAnimation1() {
   mesh.visible = true;
-  mesh.position.x = THREE.MathUtils.randInt(-400, 400);
+  mesh.position.x = THREE.MathUtils.randInt(-10, 10);
   mesh.position.y = THREE.MathUtils.randInt(-2, 300);
   mesh.position.z = THREE.MathUtils.randInt(-400, 400);
   mesh.material.color.setHex(Math.random() * 0xffffff);
