@@ -1,0 +1,82 @@
+#webgl, #translate,#rotate,#scale,#gui{
+    position: absolute;
+}
+#webgl {
+    z-index: 1;
+    top: 50px;
+}
+#translate{
+    z-index: 2;
+    height: 40px;
+    width: 40px;
+    left: 10px;
+    top: 10px;
+    border: none;
+    background-color:  #b2fab4;
+
+}
+#rotate{
+
+    z-index: 2;
+    height: 40px;
+    width: 40px;
+    left: 10px;
+    top: 60px;
+    border: none;
+    background-color:  #b2fab4;
+}
+#scale{
+    z-index: 2;
+    height: 40px;
+    width: 40px;
+    left: 10px;
+    top: 110px;
+    border: none;
+    background-color:  #b2fab4;
+}
+#gui{ 
+   z-index: 2;
+   right: 0%;
+   top: 0%;
+}
+body{
+    background-color: #519657;
+}
+#draw{
+    width: 120px;
+    border: none;
+   font-size: 20px;
+   color: black;
+   background-color: #519657;
+   margin-top: 10px;
+   margin-left: 10px;
+ 
+}
+#surface{  
+    width: fit-content;
+    border: none;
+    font-size: 20px;
+    color: black;
+    background-color: #519657;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+#light{
+    width: fit-content;
+    border: none;
+    font-size: 20px;
+    color: black;
+    background-color: #519657;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+#animation{
+    width: fit-content;
+    border: none;
+    font-size: 20px;
+    color: black;
+    background-color: #519657;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
