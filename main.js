@@ -42,9 +42,11 @@ var data = {
   lightcolor: 0xffffff,
   animation: "None",
 };
+
 init();
 render();
 animate();
+
 
 function init() {
   // Renderer
@@ -104,7 +106,7 @@ function init() {
   control.addEventListener("dragging-changed", function (event) {
     orbit.enabled = !event.value;
   });
-
+  control.addEventListener("")
   transformMode();
   scene.add(control);
 
@@ -211,16 +213,21 @@ function init() {
   animationFolder
     .add(data, "animation", [
       "None",
-      "Animation 1",
-      "Animation 2",
-      "Animation 3",
-      "Animation with Person",
+      "Random appear",
+      "Move, spin and return",
+      "Move, spin and increase size",
+      "Self-rotate",
+      "Rung",
     ])
     .name("Animation Model")
     .onChange(animation);
-
+    var obj = { Animated:function(){ 
+      
+    }};
+    gui.add(obj,'Animated');
   // Resize
   window.addEventListener("resize", onWindowResize);
+  
 }
 
 function transformMode() {
@@ -266,25 +273,28 @@ function render() {
 
 function animation(data) {
   switch (data.animation) {
-    case "Animation 1":
-      return updateAnimation1();
-    case "Animation 2":
+    case "Random appear":
+      return RandomAppear();
+    case "Move, spin and return":
       return updateAnimation2();
-    case "Animation 3":
+    case "Move, spin and increase size":
       return updateAnimation3();
-    case "Animation with Person":
-      return animatePerson();
+    case "Self-rotate":
+      return updateAnimation4();
+    case "Rung":
+      return updateAnimation5();
     case "None":
       return undefined;
   }
 }
 
 var rangeScence = 400;
-function updateAnimation1() {
+function RandomAppear() {
+  // animation1Folder.visible = true;
   mesh.visible = true;
-  mesh.position.x = THREE.MathUtils.randInt(-10, 10);
-  mesh.position.y = THREE.MathUtils.randInt(-2, 300);
-  mesh.position.z = THREE.MathUtils.randInt(-400, 400);
+  mesh.position.x = THREE.MathUtils.randInt(-50, 50);
+  mesh.position.y = THREE.MathUtils.randInt(-10, 10);
+  mesh.position.z = THREE.MathUtils.randInt(-20, 20);
   mesh.material.color.setHex(Math.random() * 0xffffff);
   remove();
 }
@@ -314,7 +324,7 @@ function updateAnimation2() {
 }
 
 var t = 0;
-var count = -1000;
+var count = -100;
 function updateAnimation3() {
   mesh.visible = true;
   t += 0.01;
@@ -328,16 +338,23 @@ function updateAnimation3() {
     mesh.scale.x += 0.05;
     mesh.scale.y += 0.05;
     mesh.scale.z += 0.05;
-  } else if (count > 0 && count <= 1000) {
+  } else if (count > 0 && count <= 100) {
     mesh.scale.x -= 0.05;
     mesh.scale.y -= 0.05;
     mesh.scale.z -= 0.05;
   } else {
-    count = -1000;
+    count = -100;
   }
   remove();
 }
 
+function updateAnimation4() {
+  mesh.visible = true;
+  mesh.rotation.x += 30;
+  mesh.rotation.y += 30;
+  mesh.rotation.z += 30;
+  remove()
+}
 function loadColada() {
   modelLoader.load(
     "./models/collada/dance/Flair.dae",
@@ -363,48 +380,17 @@ function loadColada() {
     }
   );
 }
-function animatePerson() {
-  mesh.visible = false;
-  if (sound.isPlaying) {
-  } else {
-    sound.play();
-  }
-  // if (requestID != null) cancelAnimationFrame(requestID);
-  var object = scene.getObjectByName("object");
-
-  var model = scene.getObjectByName("model");
-  var stage = scene.getObjectByName("stage");
-  var model2 = scene.getObjectByName("model2");
-  gridHelper.visible = false;
-  plane.visible = false;
-  model.visible = true;
-  model2.visible = true;
-  stage.visible = true;
-  const delta = clock.getDelta();
-
-  if (mixer !== undefined) {
-    mixer.update(delta);
-  }
-  model2.position.x = 3 * Math.cos(r);
-  model2.position.z = 3 * Math.sin(r);
-  model2.position.y = 3;
-  model2.rotation.z += 0.01;
-  model2.rotation.x = Math.PI / 4;
-  if (r > 0.05 + Math.PI * 2) {
-    r = 0.05;
-  } else {
-    r += 0.01;
-  }
-
-  if (object != undefined) {
-    object.rotation.x += 0.005;
-    object.rotation.y += 0.01;
-    object.position.z = 0;
-    object.position.x = 0;
-    object.position.y = 7;
-  }
-  //requestID = requestAnimationFrame(animate3);
+let tmp = 1000;
+let tmp1 = 2000;
+function updateAnimation5() {
+  mesh.position.x = Math.sin(tmp * 0.001) * 0.5
+  mesh.position.z = Math.cos(tmp1 * 0.001) * 0.5
+  tmp += 500;
+  tmp1 += 500;
+  remove();
 }
+
+// 
 
 function generateLight() {
   switch (data.lighttype) {
